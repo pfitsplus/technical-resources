@@ -88,6 +88,13 @@ Windows: append `| Select-String "U0AAAAAAA|U0BBBBBBB"` to filter. macOS/Linux: 
 ## 6. View or reuse it
 
 - Browse it: `slackdump view "<output folder>"`
+- Convert it to a readable Markdown transcript with [`dm2md.py`](dm2md.py) (Python 3.9+, no extra packages), using the IDs from step 5 for names:
+
+  ```
+  python3 dm2md.py "<output folder>/D0123456789.json" --name U0AAAAAAA=Alice --name U0BBBBBBB=Bob
+  ```
+
+  This writes `D0123456789.md` next to the JSON, with threads, times in US Eastern (change with `--tz`), and links to the saved attachments.
 - Rerun step 4 any time to refresh with new messages.
 
 **If you process the JSON yourself:** each thread's `slackdump_thread_replies` list also contains the thread's parent message. Skip entries whose `ts` matches the parent's `ts`, or you'll count those messages twice.
